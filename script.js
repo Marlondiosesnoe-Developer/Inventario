@@ -339,6 +339,7 @@ function changeQty(id, delta) {
 function renderTable() {
   const search = document.getElementById("search").value.toLowerCase();
   const catF = document.getElementById("filter-cat").value;
+  const statusF = document.getElementById("filter-status").value;
   const sortF = document.getElementById("sort").value;
 
   let list = items.filter((i) => {
@@ -348,7 +349,8 @@ function renderTable() {
       (i.brand || "").toLowerCase().includes(search) ||
       (i.supplier || "").toLowerCase().includes(search);
     const matchCat = !catF || i.cat === catF;
-    return matchSearch && matchCat;
+    const matchStatus = !statusF || i.status === statusF;
+    return matchSearch && matchCat && matchStatus;
   });
 
   list.sort((a, b) => {

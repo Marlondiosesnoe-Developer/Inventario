@@ -246,6 +246,16 @@
               <option value="food">🍽 Alimentación</option>
               <option value="other">📦 Otros</option>
             </select>
+            <select
+              class="filter-select"
+              id="filter-status"
+              onchange="renderTable()"
+            >
+              <option value="">Todos los estados</option>
+              <option value="completo">✅ Completo</option>
+              <option value="medio">⚡ Medio</option>
+              <option value="reponer">⚠️ Reponer</option>
+            </select>
             <select class="filter-select" id="sort" onchange="renderTable()">
               <option value="date-desc">Más recientes</option>
               <option value="date-asc">Más antiguos</option>
