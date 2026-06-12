@@ -215,6 +215,22 @@
               <button class="btn btn-ghost" onclick="exportExcel()">
                 ⬇ Exportar Excel
               </button>
+              <button class="btn btn-ghost" onclick="exportData()">
+                💾 Exportar Datos
+              </button>
+              <input
+                type="file"
+                id="import-file"
+                accept=".json"
+                style="display: none"
+                onchange="importData(event)"
+              />
+              <button
+                class="btn btn-ghost"
+                onclick="document.getElementById('import-file').click()"
+              >
+                📂 Importar Datos
+              </button>
               <button class="btn btn-ghost" onclick="clearAll()">
                 🗑 Limpiar todo
               </button>

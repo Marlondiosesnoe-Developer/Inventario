@@ -493,6 +493,58 @@ function exportExcel() {
   showToast("✅ Excel exportado");
 }
 
+// ── EXPORTAR DATOS (JSON) ──────────────────────────────
+function exportData() {
+  if (!items.length && !requests.length) {
+    showToast("No hay datos para exportar");
+    return;
+  }
+  const dataToExport = {
+    items: items,
+    requests: requests,
+    exportDate: new Date().toISOString()
+  };
+  const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `inventario_backup_${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast("✅ Datos exportados correctamente");
+}
+
+// ── IMPORTAR DATOS (JSON) ──────────────────────────────
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      
+      if (data.items) {
+        items = data.items;
+      }
+      if (data.requests) {
+        requests = data.requests;
+      }
+      
+      save();
+      renderTable();
+      updateStats();
+      renderRequests();
+      showToast("✅ Datos importados correctamente!");
+    } catch (error) {
+      showToast("❌ Error al importar: archivo inválido");
+      console.error(error);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = "";
+}
+
 // ── TOAST ──────────────────────────────────────────────
 let toastTimer;
 function showToast(msg) {
